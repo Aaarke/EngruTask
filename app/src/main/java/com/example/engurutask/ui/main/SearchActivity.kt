@@ -1,8 +1,8 @@
-package com.example.engurutask
+package com.example.engurutask.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.engurutask.ui.main.SearchFragment
+import com.example.engurutask.R
 
 class SearchActivity : AppCompatActivity() {
 
