@@ -10,5 +10,5 @@ data class Query(
     val redirects: List<Redirect>? = null,
     @SerializedName("pages")
     @Expose
-    val pages: List<Page>? = null
+    val pages: ArrayList<Page>? = null
 ) : Serializable

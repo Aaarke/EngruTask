@@ -25,7 +25,6 @@ class SearchViewViewModel : BaseViewModel() {
         @Inject set
     private val compositeDisposable = CompositeDisposable()
     var resultLiveData: MutableLiveData<WikiModel> = MutableLiveData()
-
     fun performSearch(query: String) {
         val map = HashMap<String, String>()
         map[REQ_ACTION] = "query"
