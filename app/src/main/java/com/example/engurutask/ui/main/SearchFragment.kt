@@ -1,5 +1,6 @@
 package com.example.engurutask.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.engurutask.R
 import com.example.engurutask.adapter.WikiSearchAdapter
 import com.example.engurutask.model.WikiModel
+import com.example.engurutask.utility.Keys
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class SearchFragment : Fragment() {
@@ -50,11 +52,22 @@ class SearchFragment : Fragment() {
                 wikiSearchAdapter.updateAdapter(listOfPages)
             } else {
                 isAdapterInitialised = true
-                wikiSearchAdapter = WikiSearchAdapter(activity, listOfPages)
+                wikiSearchAdapter =
+                    WikiSearchAdapter(activity, listOfPages, object : OnItemClickedListener {
+                        override fun onItemClicked(url: String) {
+                            openWebView(url)
+                        }
+                    })
                 rvListOfPages.adapter = wikiSearchAdapter
             }
         }
 
+    }
+
+    private fun openWebView(url: String) {
+        val intent = Intent(activity, WebViewActivity::class.java)
+        intent.putExtra(Keys.EXTRAS.URL, url)
+        startActivity(intent)
     }
 
     fun searchRepo(query: String) {

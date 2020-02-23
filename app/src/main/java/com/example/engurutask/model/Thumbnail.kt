@@ -7,7 +7,7 @@ import java.io.Serializable
 data class Thumbnail(
     @SerializedName("source")
     @Expose
-    val source: String,
+    val source: String?="",
     @SerializedName("width")
     @Expose
     val width: Int,

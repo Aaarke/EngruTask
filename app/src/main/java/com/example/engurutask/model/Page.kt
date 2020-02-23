@@ -19,8 +19,9 @@ data class Page(
     val index: Int,
     @SerializedName("thumbnail")
     @Expose
-    val thumbnail: Thumbnail,
+    val thumbnail: Thumbnail?=null,
     @SerializedName("terms")
     @Expose
-    val terms: Terms
+    val terms: Terms?=null
+
 ) : Serializable

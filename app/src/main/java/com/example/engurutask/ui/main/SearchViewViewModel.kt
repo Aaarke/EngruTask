@@ -37,7 +37,7 @@ class SearchViewViewModel : BaseViewModel() {
         map[REQ_PILIMIT] = "10"
         map[REQ_WBPTTERMS] = "description"
         map["prop"]="pageimages|pageterms"
-        map[REQ_GPS_LIMIT] = "10"
+        map[REQ_GPS_LIMIT] = "500"
         map[REQ_GPS_SEARCH] = query
         apiInterface?.performSearch(map)
             ?.subscribeOn(Schedulers.io())
