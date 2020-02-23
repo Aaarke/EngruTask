@@ -42,7 +42,7 @@ object NetworkModule {
     }
 
     @Provides
-     fun httpClient(): OkHttpClient {
+     internal fun httpClient(): OkHttpClient {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
         val httpClient = OkHttpClient.Builder()
