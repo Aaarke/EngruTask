@@ -13,6 +13,7 @@ import com.example.engurutask.R
 import com.example.engurutask.adapter.WikiSearchAdapter
 import com.example.engurutask.model.WikiModel
 import com.example.engurutask.utility.Keys
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class SearchFragment : Fragment() {

@@ -18,6 +18,7 @@ import com.example.engurutask.utility.Keys.ApiField.Companion.REQ_WBPTTERMS
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SearchViewViewModel : BaseViewModel() {
@@ -39,7 +40,9 @@ class SearchViewViewModel : BaseViewModel() {
         map["prop"]="pageimages|pageterms"
         map[REQ_GPS_LIMIT] = "500"
         map[REQ_GPS_SEARCH] = query
-        apiInterface?.performSearch(map)
+        apiInterface?.performSearch(map)?.
+            debounce(300, TimeUnit.MILLISECONDS)
+            ?.distinctUntilChanged()
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.doOnSubscribe {

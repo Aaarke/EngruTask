@@ -16,8 +16,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".ui.main.WebViewActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.main.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

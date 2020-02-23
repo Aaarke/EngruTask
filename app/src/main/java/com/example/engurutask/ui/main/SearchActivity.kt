@@ -29,13 +29,14 @@ class SearchActivity : AppCompatActivity() {
                     searchView.isIconified = true
                 }
                 myActionMenuItem.collapseActionView()
-                val frag =
-                    supportFragmentManager.findFragmentByTag(Constants.Fragment.FRAG_SEARCH) as SearchFragment
-                frag.searchRepo(query)
+
                 return false
             }
 
-            override fun onQueryTextChange(s: String): Boolean {
+            override fun onQueryTextChange(query: String): Boolean {
+                val frag =
+                    supportFragmentManager.findFragmentByTag(Constants.Fragment.FRAG_SEARCH) as SearchFragment
+                frag.searchRepo(query)
                 return false
             }
         })
