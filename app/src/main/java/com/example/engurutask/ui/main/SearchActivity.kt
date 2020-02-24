@@ -1,14 +1,15 @@
 package com.example.engurutask.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.widget.SearchView
 import com.example.engurutask.R
+import com.example.engurutask.base.BaseActivity
 import com.example.engurutask.utility.Constants
+import com.example.engurutask.utility.GlobalVars
 
-class SearchActivity : AppCompatActivity() {
 
+class SearchActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
@@ -18,6 +19,8 @@ class SearchActivity : AppCompatActivity() {
                     .commitNow()
         }
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.dashboard, menu)
@@ -34,13 +37,27 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(query: String): Boolean {
-                val frag =
-                    supportFragmentManager.findFragmentByTag(Constants.Fragment.FRAG_SEARCH) as SearchFragment
-                frag.searchRepo(query)
+                if (GlobalVars.isNetworkConnected){
+                    val frag =
+                        supportFragmentManager.findFragmentByTag(Constants.Fragment.FRAG_SEARCH) as SearchFragment
+                    frag.searchRepo(query)
+                }else{
+                    makeToast()
+                    showNoInternetUi()
+
+                }
+
                 return false
             }
         })
         return true
     }
+
+    private fun showNoInternetUi() {
+        val frag =
+            supportFragmentManager.findFragmentByTag(Constants.Fragment.FRAG_SEARCH) as SearchFragment
+        frag.showNoInternetUi()
+    }
+
 
 }

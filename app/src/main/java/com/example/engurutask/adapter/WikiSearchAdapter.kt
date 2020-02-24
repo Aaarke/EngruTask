@@ -79,7 +79,7 @@ class WikiSearchAdapter(private var context: Context?, private var listOfPages: 
         holder.itemView.tvTitle.text=listOfPages[position].title
 
         holder.itemView.tvDescription.text =
-            listOfPages[position].terms?.description?.get(0).toString()
+            listOfPages[position].terms?.description?.get(0) ?: ""
 
     }
 

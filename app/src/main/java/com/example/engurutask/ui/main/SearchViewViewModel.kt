@@ -26,6 +26,8 @@ class SearchViewViewModel : BaseViewModel() {
         @Inject set
     private val compositeDisposable = CompositeDisposable()
     var resultLiveData: MutableLiveData<WikiModel> = MutableLiveData()
+    var isLoading: MutableLiveData<Boolean>? = MutableLiveData()
+    var error: MutableLiveData<String>? = MutableLiveData()
     fun performSearch(query: String) {
         val map = HashMap<String, String>()
         map[REQ_ACTION] = "query"
@@ -37,23 +39,25 @@ class SearchViewViewModel : BaseViewModel() {
         map[REQ_PIT_THUMB_SIZE] = "50"
         map[REQ_PILIMIT] = "10"
         map[REQ_WBPTTERMS] = "description"
-        map["prop"]="pageimages|pageterms"
-        map[REQ_GPS_LIMIT] = "500"
+        map["prop"] = "pageimages|pageterms"
+        map[REQ_GPS_LIMIT] = "1000"
         map[REQ_GPS_SEARCH] = query
-        apiInterface?.performSearch(map)?.
-            debounce(300, TimeUnit.MILLISECONDS)
+        apiInterface?.performSearch(map)?.debounce(300, TimeUnit.MILLISECONDS)
             ?.distinctUntilChanged()
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.doOnSubscribe {
+                isLoading?.value = true
             }
 
             ?.subscribe(
                 { result ->
-                resultLiveData.value=result
+                    isLoading?.value = false
+                    resultLiveData.value = result
                 },
                 {
-                    //homeViewModel.setState(IViewModel.ViewState.ErrorState)
+                    isLoading?.value = false
+                    error?.value = it.message
                 }
             )?.let { compositeDisposable.add(it) }
 
@@ -61,6 +65,6 @@ class SearchViewViewModel : BaseViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-       compositeDisposable.clear()
+        compositeDisposable.clear()
     }
 }

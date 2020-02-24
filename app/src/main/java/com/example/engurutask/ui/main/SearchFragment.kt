@@ -13,7 +13,6 @@ import com.example.engurutask.R
 import com.example.engurutask.adapter.WikiSearchAdapter
 import com.example.engurutask.model.WikiModel
 import com.example.engurutask.utility.Keys
-import io.reactivex.Observable
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class SearchFragment : Fragment() {
@@ -41,6 +40,16 @@ class SearchFragment : Fragment() {
         viewModel.performSearch("sachin")
         viewModel.resultLiveData.observe(viewLifecycleOwner, Observer {
             setAdapter(it)
+        })
+
+        viewModel.isLoading?.observe(viewLifecycleOwner, Observer { isLoading ->
+            run {
+                if (isLoading) {
+                    pbWiki.visibility = View.VISIBLE
+                } else {
+                    pbWiki.visibility = View.GONE
+                }
+            }
         })
     }
 
@@ -72,7 +81,16 @@ class SearchFragment : Fragment() {
     }
 
     fun searchRepo(query: String) {
+        rvListOfPages.visibility=View.VISIBLE
+        pbWiki.visibility=View.VISIBLE
+        ivNoInternet.visibility=View.GONE
         viewModel.performSearch(query)
+    }
+
+    fun showNoInternetUi() {
+        rvListOfPages.visibility=View.GONE
+        pbWiki.visibility=View.GONE
+        ivNoInternet.visibility=View.VISIBLE
     }
 
 }

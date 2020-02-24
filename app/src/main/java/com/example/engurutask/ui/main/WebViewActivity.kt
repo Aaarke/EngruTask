@@ -8,10 +8,11 @@ import android.view.View
 import android.webkit.*
 import android.widget.ProgressBar
 import com.example.engurutask.R
+import com.example.engurutask.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_web_view.*
 import kotlinx.android.synthetic.main.content_web_view.*
 
-class WebViewActivity : AppCompatActivity() {
+class WebViewActivity : BaseActivity() {
     private var dialog: ProgressBar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
